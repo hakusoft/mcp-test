@@ -13,5 +13,11 @@ def calculate_total(items, tax_rate=0.1):
 
 
 def apply_discount(total, rate):
-    """Apply a discount rate (0.0-1.0) to a total."""
+    """Apply a discount rate to a total.
+
+    Raises:
+        ValueError: if rate is outside the 0.0-1.0 range.
+    """
+    if not 0.0 <= rate <= 1.0:
+        raise ValueError(f"rate must be between 0.0 and 1.0, got {rate}")
     return total * (1 - rate)
