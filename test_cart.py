@@ -1,3 +1,5 @@
+import pytest
+
 import cart
 
 
@@ -12,3 +14,8 @@ def test_calculate_total_empty():
 
 def test_apply_discount():
     assert cart.apply_discount(1000, 0.2) == 800.0
+
+
+def test_apply_discount_rejects_rate_above_one():
+    with pytest.raises(ValueError):
+        cart.apply_discount(1000, 1.5)
