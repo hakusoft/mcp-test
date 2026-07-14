@@ -16,6 +16,12 @@ def test_apply_discount():
     assert cart.apply_discount(1000, 0.2) == 800.0
 
 
-def test_apply_discount_rejects_rate_above_one():
+@pytest.mark.parametrize("rate", [1.5, -0.2])
+def test_apply_discount_rejects_invalid_rate(rate):
     with pytest.raises(ValueError):
-        cart.apply_discount(1000, 1.5)
+        cart.apply_discount(1000, rate)
+
+
+@pytest.mark.parametrize("rate,expected", [(0.0, 1000.0), (1.0, 0.0)])
+def test_apply_discount_accepts_bounds(rate, expected):
+    assert cart.apply_discount(1000, rate) == expected

@@ -18,6 +18,6 @@ def apply_discount(total, rate):
     Raises:
         ValueError: if rate is outside the 0.0-1.0 range.
     """
-    if rate > 1.0:
+    if not 0.0 <= rate <= 1.0:
         raise ValueError(f"rate must be between 0.0 and 1.0, got {rate}")
     return total * (1 - rate)
