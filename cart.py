@@ -5,11 +5,13 @@ def calculate_total(items, tax_rate=0.1):
     """Return the tax-included total for a list of cart items.
 
     Each item is a dict with "price" and "quantity".
+    The result is rounded to 2 decimal places, since binary floats
+    cannot represent tax rates like 0.1 exactly.
     """
     subtotal = 0
     for item in items:
         subtotal += item["price"] * item["quantity"]
-    return subtotal * (1 + tax_rate)
+    return round(subtotal * (1 + tax_rate), 2)
 
 
 def apply_discount(total, rate):
