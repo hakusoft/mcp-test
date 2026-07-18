@@ -16,9 +16,15 @@ def calculate_total(
     `shipping_fee` see no change in behavior.
     The result is rounded to 2 decimal places, since binary floats
     cannot represent tax rates like 0.1 exactly.
+
+    Raises:
+        ValueError: if an item is missing "price" or "quantity".
     """
     subtotal = 0
     for item in items:
+        for key in ("price", "quantity"):
+            if key not in item:
+                raise ValueError(f"cart item missing required key: {key!r}")
         subtotal += item["price"] * item["quantity"]
     if subtotal < free_shipping_threshold:
         subtotal += shipping_fee
